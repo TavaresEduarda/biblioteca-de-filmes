@@ -3,7 +3,7 @@ const mysql = require("mysql2"); // Biblioteca para conectar no MySQL
 const path = require("path"); // Módulo nativo do Node para lidar com caminhos
 
 const app = express(); // Cria a aplicação Express
-
+ 
 // Middleware para interpretar JSON no corpo das requisições
 app.use(express.json());
 
