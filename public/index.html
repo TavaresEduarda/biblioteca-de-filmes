@@ -8,14 +8,28 @@
 <body>
   <h1>🎬 Biblioteca de Filmes</h1>
   
-  <div id="lista-filmes">
+  <div id="buscarFilme">
     <input type="text" id="idFilme" placeholder="Digite o ID do filme">
     <button onclick="buscarFilme()">Buscar Filme</button>
-    <div id="titulo">Titulo</div>
-    <div id="ano">Ano de lançamento</div>
-    <div id="diretor">Diretor</div>
-    <div id="genero">Genero</div>
+    <div id="titulo"></div>
+    <div id="ano"></div>
+    <div id="diretor"></div>
+    <div id="genero"></div>
   </div>
+
+  <button onclick="listarFilmes()">Mostrar Todos os Filmes</button>
+  <div id="listaFilmes">
+    <ul id="lista"></ul>
+  </div>
+  
+  <form id="addFilme">
+    <h2>Adicionar Novo Filme</h2>
+    <input type="text" id="titulos" placeholder="Titulo do Filme">
+    <input type="text" id="diretors" placeholder="Diretor">
+    <input type="number" id="anos" placeholder="Ano de Lançamento">
+    <input type="text" id="generos" placeholder="Gênero">
+    <button type="submit">Adicionar Filme</button>
+  </form>
 
   <script src="script.js"></script>
 </body>

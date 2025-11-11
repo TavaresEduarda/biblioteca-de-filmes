@@ -42,6 +42,18 @@ app.get("/avaliacoes", (req, res) => {
   });
 });
 
+app.post("/filmes", (req, res) => {
+  const { nome, genero, diretor, ano } = req.body; // Extrai os dados enviados pelo front
+  db.query(
+    "INSERT INTO filmes (nome, genero, diretor, ano) VALUES (?, ?, ?, ?)", // Query SQL com placeholders
+    [nome, genero, diretor, ano], // Valores que substituem os "?"
+    (err, result) => {
+      if (err) throw err;
+      res.json({ message: "Comentario adicionado com sucesso!" }); // Retorno de sucesso
+    }
+  );
+});
+
 // Inicia o servidor na porta 3000
 app.listen(3000, () =>
   console.log("Servidor rodando em http://localhost:3000")
