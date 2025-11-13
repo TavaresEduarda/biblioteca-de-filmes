@@ -28,7 +28,24 @@ function buscarFilme() {
     })
 }
 
-function listarFilmes() {
+// function avaliacoesFilme() {
+//   let url = `/avaliacoes/` 
+
+//   fetch(url)
+//     .then(response => {
+//       return response.json();
+//     })
+
+//     .then(data => {
+//       for(let i = 0; i < data.length; i++){
+
+//         if(data[i].id_avaliacoes){}
+//       }
+//       console.log(data[i])
+//     })
+// }
+
+function listarFilmes() { // função para listar filmes na tela
   fetch('/filmes')
     .then(response => response.json())
     .then(data => {
@@ -39,13 +56,19 @@ function listarFilmes() {
         const li = document.createElement('li')
         li.textContent = `${filme.nome} - ${filme.diretor} (${filme.ano}) [${filme.genero}]`
          lista.appendChild(li)
+
+         const button = document.createElement('button')
+          button.textContent = "Avaliação"
+          lista.appendChild(button)
+          
+       
          
       })
     })
     .catch(error => console.error("Erro ao buscar filmes:", error))
 }
 
-form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", async (e) => { //add novo filme
   e.preventDefault();
 
   const nome = document.getElementById("titulos").value
