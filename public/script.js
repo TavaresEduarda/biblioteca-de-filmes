@@ -1,6 +1,6 @@
 
 let form = document.getElementById("addFilme")
-
+ 
 function buscarFilme() {
   const id = document.getElementById("idFilme").value
   let url = `/filmes/`
@@ -10,6 +10,7 @@ function buscarFilme() {
       return response.json();
     })
     .then(data => {
+      console.log(id)
       for(let i = 0; i < data.length; i++) {
         
         if(data[i].id_filmes == id){
@@ -27,23 +28,28 @@ function buscarFilme() {
       console.error(error)
     })
 }
+ 
 
-// function avaliacoesFilme() {
-//   let url = `/avaliacoes/` 
+function avaliacoesFilme() {
+  const id = document.getElementById("idFilme").value
+  let url = `/avaliacoes/` 
 
-//   fetch(url)
-//     .then(response => {
-//       return response.json();
-//     })
+  fetch(url)
+    .then(response => {
+      return response.json();
+    })
 
-//     .then(data => {
-//       for(let i = 0; i < data.length; i++){
+    .then(data => {
+      for(let i = 0; i < data.length; i++){
 
-//         if(data[i].id_avaliacoes){}
-//       }
-//       console.log(data[i])
-//     })
-// }
+        if(data[i].id_avaliacoes == id){
+          console.log(data[i])
+         textContent = "Avaliação: " + data[i].nota + " Comentário: " + data[i].comentario
+        }
+      }
+      
+    })
+}
 
 function listarFilmes() { // função para listar filmes na tela
   fetch('/filmes')
@@ -59,7 +65,10 @@ function listarFilmes() { // função para listar filmes na tela
 
          const button = document.createElement('button')
           button.textContent = "Avaliação"
+           button.addEventListener("click", () => avaliacoesFilme())
+           
           lista.appendChild(button)
+         
           
        
          
