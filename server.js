@@ -7,8 +7,7 @@ const app = express(); // Cria a aplicação Express
 // Middleware para interpretar JSON no corpo das requisições
 app.use(express.json());
 
-// Middleware para servir arquivos estáticos (HTML, CSS, JS da pasta public/)
-app.use(express.static(path.join(__dirname, "public")));
+
 
 // Conexão com o banco MySQL (via XAMPP)
 const db = mysql.createConnection({
@@ -54,7 +53,44 @@ app.post("/filmes", (req, res) => {
   );
 });
 
+app.post("/avaliacoes", (req, res) => {
+  const { nota, comentario, id_filmes } = req.body;
+  db.query(
+    "INSERT INTO avaliacoes (nota, comentario, id_filmes) VALUES (?, ?, ?)",
+    [nota, comentario, id_filmes], // Valores que substituem os "?"
+    (err, result) => {
+      if (err) {
+        console.error("Erro ao adicionar avaliação:", err);
+        return res.status(500).json({ error: "Erro ao adicionar avaliação" });
+      }
+      res.json({ message: "Avaliação adicionada com sucesso!" }); // Retorno de sucesso
+    }
+  );
+});
+
+app.delete("/filmes/:id", (req, res) => {
+  const id = req.params.id;
+
+  db.query("DELETE FROM filmes WHERE id_filmes = ?", [id], (err, result) => {
+    if (err) {
+      console.error("Erro ao deletar filme:", err);
+      return res.status(500).json({ error: "Erro ao deletar" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Filme não encontrado" });
+    }
+
+    res.json({ message: "Filme deletado com sucesso!" });
+  });
+});
+
+// Middleware para servir arquivos estáticos (HTML, CSS, JS da pasta public/)
+app.use(express.static(path.join(__dirname, "public")));
+
 // Inicia o servidor na porta 3000
 app.listen(3000, () =>
   console.log("Servidor rodando em http://localhost:3000")
 );
+
+
