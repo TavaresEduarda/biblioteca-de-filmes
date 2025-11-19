@@ -88,6 +88,7 @@ function listarFilmes() {
         button.textContent = "Avaliações"
         button.addEventListener("click", () => avaliacoesFilme(filme.id_filmes))
 
+          // botão de deletar
         const deleteButton = document.createElement("button")
         deleteButton.textContent = "Excluir"
         deleteButton.style.marginLeft = "10px"
@@ -95,7 +96,7 @@ function listarFilmes() {
 
       const form = document.createElement('form')
         form.innerHTML = `
-         <input type="number" min="1" max="5" placeholder="Nota (1-5)" required id="nota-${filme.id_filmes}">
+         <input type="number" min="1" max="10" placeholder="Nota (1-10)" required id="nota-${filme.id_filmes}">
          <input type="text" placeholder="Comentário" required id="comentario-${filme.id_filmes}">
          <button type="submit">Enviar Avaliação</button>
          `
@@ -109,7 +110,6 @@ function listarFilmes() {
              form.reset(); // Limpa os campos do formulário
          })
 
-
         li.appendChild(deleteButton)
         li.appendChild(document.createElement("br"))
         li.appendChild(button)
@@ -117,7 +117,6 @@ function listarFilmes() {
         li.appendChild(form)
         lista.appendChild(li)
 
-        
       })
     })
     .catch(error => console.error("Erro ao buscar filmes:", error))
@@ -134,7 +133,7 @@ function adicionarAvaliacao(id_Filmes) {
     body: JSON.stringify({
       nota: parseInt(nota), // Converte para número inteiro para o banco
       comentario,
-      id_filmes: id_Filmes // Nome da coluna na tabela de avaliações (assumindo que seja id_filmes)
+      id_filmes: id_Filmes 
     }),
   })
     .then(response => {

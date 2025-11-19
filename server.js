@@ -7,7 +7,8 @@ const app = express(); // Cria a aplicação Express
 // Middleware para interpretar JSON no corpo das requisições
 app.use(express.json());
 
-
+// Middleware para servir arquivos estáticos (HTML, CSS, JS da pasta public/)
+app.use(express.static(path.join(__dirname, "public")));
 
 // Conexão com o banco MySQL (via XAMPP)
 const db = mysql.createConnection({
@@ -68,10 +69,10 @@ app.post("/avaliacoes", (req, res) => {
   );
 });
 
-app.delete("/filmes/:id", (req, res) => {
+app.delete("/avaliacoes/:id", (req, res) => {
   const id = req.params.id;
 
-  db.query("DELETE FROM filmes WHERE id_filmes = ?", [id], (err, result) => {
+  db.query("DELETE FROM avaliacoes WHERE id_avaliacoes = ?", [id], (err, result) => {
     if (err) {
       console.error("Erro ao deletar filme:", err);
       return res.status(500).json({ error: "Erro ao deletar" });
@@ -85,8 +86,7 @@ app.delete("/filmes/:id", (req, res) => {
   });
 });
 
-// Middleware para servir arquivos estáticos (HTML, CSS, JS da pasta public/)
-app.use(express.static(path.join(__dirname, "public")));
+
 
 // Inicia o servidor na porta 3000
 app.listen(3000, () =>
